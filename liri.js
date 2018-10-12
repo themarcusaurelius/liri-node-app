@@ -64,7 +64,7 @@ function runRequest() {
                         else {
                             console.log(chalk.blue(` * Rotten Tomatoes Rating: ${data.Ratings[1].Value}`));
                         }
-                        console.log(chalk.blue(` * Country: ${data.Country} \n * Language: ${data.Language} \n * Plot: ${data.Plot} \n * Actors: ${data.Actors} \n ----------------------------------`));
+                        console.log(chalk.blue(` * Country: ${data.Country} \n * Language: ${data.Language} \n * Plot: ${data.Plot} \n * Cast: ${data.Actors} \n ----------------------------------`));
                     })
                 }
                 else {
