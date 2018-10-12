@@ -22,25 +22,26 @@ function runRequest() {
     
     switch (command) {
 
-
     case 'spotify-this-song':
-                if(input === undefined || input === "" || input === " ") {
-                    input = "Electrical Storm";
-                }
+
+            if (input === undefined || input === "" || input === " " ) {
+                input = "All Star"
+            }
                 
                 spotify.search({type: "track", query: input, limit: 1}, function(err, info) {
                     
                     if (!err) {
-                        console.log(chalk.green(` \n Artist: ${JSON.stringify(info.tracks.items[0].album.artists[0].name)} \n Song: ${input}`));
+                        
+                        console.log(chalk.green(`\n ---------------------------------- \n * Song: ${info.tracks.items[0].name} \n * Artist: ${JSON.stringify(info.tracks.items[0].album.artists[0].name)}`));
                         
                         if (JSON.stringify(info.tracks.items[0].preview_url) === "null"){
-                            console.log(chalk.green(`Sorry, no preview url found.`));
+                            console.log(chalk.red(` * No url found.`));
                         }
                         else {
-                            console.log(chalk.green(` Preview URL: ${JSON.stringify(info.tracks.items[0].preview_url)}`));
+                            console.log(chalk.green(` * Link: ${JSON.stringify(info.tracks.items[0].preview_url)}`));
                         }
                         
-                        console.log(chalk.green(` Album Name: ${JSON.stringify(info.tracks.items[0].album.name)}`));
+                        console.log(chalk.green(` * Album: ${JSON.stringify(info.tracks.items[0].album.name)} \n ---------------------------------- `));
                     }
                     else {
                         console.log(err);
@@ -55,7 +56,7 @@ function runRequest() {
 
                     .then(response => {
                         let data = JSON.parse(response)
-                        console.log(chalk.blue(`\n * Title: ${data.Title} \n * Year: ${data.Year} \n * IMDB Rating: ${data.imdbRating}`));
+                        console.log(chalk.blue(`\n ---------------------------------- \n * Title: ${data.Title} \n * Year: ${data.Year} \n * IMDB Rating: ${data.imdbRating}`));
 
                         if(data.Ratings[1] === undefined) {
                             console.log(chalk.red(` * No Rotten Tomatoes Rating found.`));
@@ -63,7 +64,7 @@ function runRequest() {
                         else {
                             console.log(chalk.blue(` * Rotten Tomatoes Rating: ${data.Ratings[1].Value}`));
                         }
-                        console.log(chalk.blue(` * Country: ${data.Country} \n * Language: ${data.Language} \n * Plot: ${data.Plot} \n \n * Actors: ${data.Actors}`));
+                        console.log(chalk.blue(` * Country: ${data.Country} \n * Language: ${data.Language} \n * Plot: ${data.Plot} \n * Actors: ${data.Actors} \n ----------------------------------`));
                     })
                 }
                 else {
@@ -81,19 +82,37 @@ function runRequest() {
 
                 .then( response => {
                     let data = JSON.parse(response);
+                    
                     if (data.length === 0) {
                         console.log(chalk.red(`\n * ${input} sucks. Please have better taste and choose another artist or band.`));
                     }
+                    
                     else {
-                        console.log(chalk.cyan(` \n * Concert Information: `));
+                        console.log(chalk.cyan(` \n * Concert Information for ${input} `));
                         
                         for (let i = 0; i < data.length; i++) {
-                            console.log(chalk.cyan(` \n * Artist: ${input} \n * Venue: ${data[i].venue.name} \n * Location: ${data[i].venue.city} , ${data[i].venue.region} \n * Date: ${moment(data[i].datetime).format("MMM Do YYYY")}`));
+                            console.log(chalk.cyan(`\n -------------------------------------------- \n * Venue: ${data[i].venue.name} \n * Location: ${data[i].venue.city}, ${data[i].venue.region} ${data[i].venue.country} \n * Date: ${moment(data[i].datetime).format("L")} \n --------------------------------------------`));
                         }
                     }
                 })
-            break;
-        }
+        break;
+
+    case 'do-what-it-says':
+        fs.readFile("random.txt", "utf-8", function(error, data){
+            if (!error) {
+                let splitData = data.split(", ", 2);
+                command = splitData[0];
+                input = splitData[1];
+                runRequest();
+            }
+            else {
+                console.log(error);
+            }
+        });
+        
+        break;
+        
     }
+}
 
 runRequest();
