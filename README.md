@@ -1,5 +1,15 @@
 # liri-node-app
 
+## Demo
+
+- [Video](https://drive.google.com/file/d/19of5XCochenZgjEoihDpNh2Wl0arEGih/view)
+
+<p align="center">
+    <img src="https://giant.gfycat.com/DeepDistinctIndianpalmsquirrel.webm">
+  </p>
+
+
+
 Liri is an app that takes in the user's commands/requests from git and returns the appropriate answer. It is currently set up to handle requests for Songs, Movies, and Concerts. The three APIs used to retrieve this information are Spotify, OMDB, and Bands In Town. 
 
 In the git terminal, the user will use a command such as: 
