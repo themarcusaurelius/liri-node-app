@@ -5,7 +5,7 @@
 - [Video](https://drive.google.com/file/d/19of5XCochenZgjEoihDpNh2Wl0arEGih/view)
 
 <p align="center">
-    <img src="https://giant.gfycat.com/DeepDistinctIndianpalmsquirrel.webm">
+    <img src="https://giant.gfycat.com/DeepDistinctIndianpalmsquirrel.gif">
   </p>
 
 
